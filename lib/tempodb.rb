@@ -292,7 +292,8 @@ module TempoDB
         @http = Net::HTTP.new(uri.host, uri.port)
         @http.use_ssl = @secure
         if @secure
-          @http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          # @http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+          @http.verify_mode = OpenSSL::SSL::VERIFY_NONE # debugging
           @http.ca_file = TempoDB::TRUSTED_CERT_FILE
         end
         @http.start
@@ -356,11 +357,9 @@ module TempoDB
       versioned_url = "/#{TempoDB::API_VERSION}#{url}"
       protocol = @secure ? "https" : "http"
       target = URI::Generic.new(protocol, nil, @host, @port, nil, versioned_url, nil, nil, nil)
-
       if params
         target.query = urlencode(params)
       end
-      p "Attempting to connect to #{target}"
       URI.parse(target.to_s)
     end
 
