@@ -360,7 +360,7 @@ module TempoDB
       if params
         target.query = urlencode(params)
       end
-      p "Attempting to connect to #{target.to_s}"
+      p "Attempting to connect to #{target}"
       URI.parse(target.to_s)
     end
 
