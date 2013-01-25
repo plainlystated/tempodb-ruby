@@ -311,7 +311,7 @@ module TempoDB
         response = @http.request(request)
       rescue OpenSSL::SSL::SSLError => e
         raise TempoDBClientError.new("SSL error connecting to TempoDB.  " +
-                                     "There may be a problem with the set of certificates in \"#{TempoDB::TRUSTED_CERT_FILE}\".  " + e)
+                                     "There may be a problem with the set of certificates in \"#{TempoDB::TRUSTED_CERT_FILE}\".  " + e.message)
       end
 
       parse_response(response)
